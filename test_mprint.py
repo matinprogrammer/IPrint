@@ -1,122 +1,184 @@
 from unittest import TestCase
 from mprint import mprint, get_styled_text
-from functools import partial
+import functools
+import textwrap
 
 
 class TestMPrint(TestCase):
-    def test_write_in_file(self):
+    def setUp(self):
         class FileMock:
             content = ""
 
             def write(self, content: str):
                 self.content = content
 
-        file_mock = FileMock()
-        mprint_mock = partial(mprint, file=file_mock)
+        self.file_mock = FileMock()
+        self.mprint_mock = functools.partial(mprint, file=self.file_mock)
 
-        mprint_mock('hello')
-        actual = file_mock.content
+    def test_write_in_file(self):
+        self.mprint_mock('hello')
+        actual = self.file_mock.content
         expected = 'hello\n'
         self.assertEqual(actual, expected)
 
+    def test_end(self):
+        self.mprint_mock('hello ', end="world")
+        actual = self.file_mock.content
+        expected = 'hello world'
+        self.assertEqual(actual, expected)
+
+    def test_multi_input(self):
+        self.mprint_mock('hello', "world")
+        actual = self.file_mock.content
+        expected = 'hello, world\n'
+        self.assertEqual(actual, expected)
+
+    def test_sep(self):
+        self.mprint_mock('hello', "world", sep=" test ")
+        actual = self.file_mock.content
+        expected = 'hello test world\n'
+        self.assertEqual(actual, expected)
+
+
+class TestGetStyledText(TestCase):
     def test_simple_string(self):
         actual = get_styled_text('hello', 4)
         expected = 'hello'
         self.assertEqual(actual, expected)
 
     def test_simple_list(self):
-        indent_space = " " * 4
         actual = get_styled_text(['hello'], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}hello\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                hello
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_simple_list_two_index(self):
-        indent_space = " " * 4
-
         actual = get_styled_text(['hello', 'world'], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}hello,\n"
-            f"{indent_space}world\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                hello,
+                world
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_nested_two_dimensional_list(self):
-        indent_space = " " * 4
-
         actual = get_styled_text([["hello"]], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}hello\n"
-            f"{indent_space}]\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                [
+                    hello
+                ]
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_nested_three_dimensional_list(self):
-        indent_space = " " * 4
-
         actual = get_styled_text([[["hello"]]], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}[\n"
-            f"{indent_space * 3}hello\n"
-            f"{indent_space * 2}]\n"
-            f"{indent_space}]\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                [
+                    [
+                        hello
+                    ]
+                ]
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_nested_two_dimensional_list_two_index(self):
-        indent_space = " " * 4
-
         actual = get_styled_text([["hello", "world"]], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}hello,\n"
-            f"{indent_space * 2}world\n"
-            f"{indent_space}]\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                [
+                    hello,
+                    world
+                ]
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_two_list_in_a_list(self):
-        indent_space = " " * 4
-
         actual = get_styled_text([["hello", "world"], ["test", "case"]], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}hello,\n"
-            f"{indent_space * 2}world\n"
-            f"{indent_space}],\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}test,\n"
-            f"{indent_space * 2}case\n"
-            f"{indent_space}]\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                [
+                    hello,
+                    world
+                ],
+                [
+                    test,
+                    case
+                ]
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
 
     def test_string_list_in_a_list(self):
-        indent_space = " " * 4
-
         actual = get_styled_text([["hello", "world"], "test"], 4)
-        expected = (
-            f"[\n"
-            f"{indent_space}[\n"
-            f"{indent_space * 2}hello,\n"
-            f"{indent_space * 2}world\n"
-            f"{indent_space}],\n"
-            f"{indent_space}test\n"
-            f"]"
+        expected = textwrap.dedent("""\
+            [
+                [
+                    hello,
+                    world
+                ],
+                test
+            ]"""
         )
-        self.assertEqual(actual, expected)
+        self.assertMultiLineEqual(actual, expected)
+
+    def test_simple_dict(self):
+        actual = get_styled_text({"hello": "world"}, 4)
+        expected = textwrap.dedent("""\
+            {
+                hello:
+                    world
+            }"""
+        )
+        self.assertMultiLineEqual(actual, expected)
+
+    def test_nested_dict(self):
+        actual = get_styled_text({"test": {"hello": "world"}}, 4)
+        expected = textwrap.dedent("""\
+            {
+                test:
+                    {
+                        hello:
+                            world
+                    }
+            }"""
+        )
+        self.assertMultiLineEqual(actual, expected)
+
+    def test_list_in_a_dict(self):
+        actual = get_styled_text({"hello": ["world"]}, 4)
+        expected = textwrap.dedent("""\
+            {
+                hello:
+                    [
+                        world
+                    ]
+            }"""
+        )
+        self.assertMultiLineEqual(actual, expected)
+
+    def test_simple_set(self):
+        actual = get_styled_text({"hello", "world"}, 4)
+        expected = [
+            textwrap.dedent("""\
+                {
+                    hello,
+                    world
+                }"""
+            ),
+            textwrap.dedent("""\
+                {
+                    world,
+                    hello
+                }"""
+            )
+        ]
+        self.assertIn(actual, expected)
