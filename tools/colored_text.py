@@ -19,12 +19,7 @@ class CRed(Color):
 
 class CGreen(Color):
     def get_color_code(self):
-        return "\033[1;33m"
-
-
-class CYellow(Color):
-    def get_color_code(self):
-        return "\033[1;33m"
+        return "\033[1;32m"
 
 
 class CBlue(Color):
@@ -47,6 +42,11 @@ class CWhite(Color):
         return "\033[1;37m"
 
 
+class COrange(Color):
+    def get_color_code(self):
+        return "\033[1;33m"
+
+
 class CDefault(Color):
     def get_color_code(self):
         return "\033[0m"
@@ -56,9 +56,8 @@ class ColorError(Exception):
     pass
 
 
-def get_colored_message(message: str, color: Color, clear_color: Color = CDefault):
+def get_colored_message(message: str, color: Color, clear_color: Color = CDefault()):
     if not isinstance(color, Color) or not isinstance(clear_color, Color):
         raise ColorError("invalid color or clear color (need to be Color class like 'CWhite')")
-
     return f"{color.get_color_code()}{message}{clear_color.get_color_code()}"
 
