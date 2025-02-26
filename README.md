@@ -21,56 +21,13 @@ that create better readable for you
 
 `>>> mprint(list_data)`
 
-    [
-        my name is matin,
-        20,
-        <__main__.AnotherData object at 0x7fbbc82cdc00>,
-        {
-            auther:
-                matin ahmadi,
-            github:
-                https://github.com/matinprogrammer
-        },
-        {
-            1,
-            2,
-            3
-        },
-        [
-            [
-                [
-                    test list
-                ]
-            ]
-        ]
-    ]
+![Screenshot of example code of mprint](example_of_mprint.png)
 
 
 `>>> cprint(list_data)`
 
-    [
-        my name is matin,
-        20,
-        <__main__.AnotherData object at 0x7fbbc82cdc00>,
-        {
-            auther:
-                matin ahmadi,
-            github:
-                https://github.com/matinprogrammer
-        },
-        {
-            1,
-            2,
-            3
-        },
-        [
-            [
-                [
-                    test list
-                ]
-            ]
-        ]
-    ]
+![Screenshot of example code of mprint](example_of_cprint.png)
+
 
 
     
