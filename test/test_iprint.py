@@ -1,5 +1,5 @@
 from unittest import TestCase
-from mprint import mprint, get_styled_text
+from iprint import iprint, get_styled_text
 import functools
 import textwrap
 
@@ -13,7 +13,7 @@ class TestMPrint(TestCase):
                 self.content = content
 
         self.file_mock = FileMock()
-        self.mprint_mock = functools.partial(mprint, file=self.file_mock)
+        self.mprint_mock = functools.partial(iprint, file=self.file_mock)
 
     def test_write_in_file(self):
         self.mprint_mock('hello')

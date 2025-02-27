@@ -144,7 +144,7 @@ def get_styled_text(text, indent, text_level=0, colorize=False):
     return datatypes.get(type(text), default)(text, indent, text_level, colorize).execute()
 
 
-def mprint(*text, sep=", ", end="\n", indent=4, file=sys.stdout):
+def iprint(*text, sep=", ", end="\n", indent=4, file=sys.stdout):
     out_put = ""
     for item in text:
         out_put += get_styled_text(item, indent)
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     list_data = [string_data, int_data, another_data, dict_data, set_data, [[["test list"]]]]
 
     print("result of mprint: ")
-    mprint(list_data)
+    iprint(list_data)
 
     print("\nresult of cprint: ")
     cprint(list_data)
