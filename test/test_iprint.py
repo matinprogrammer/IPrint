@@ -1,5 +1,5 @@
 from unittest import TestCase
-from iprint import iprint, get_styled_text
+from iprint.iprint import iprint, get_styled_text
 import functools
 import textwrap
 

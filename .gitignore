@@ -4,4 +4,5 @@ logs/
 __pycache__/
 dist/
 build/
+indent_print.egg-info/
 *.spec

@@ -30,12 +30,17 @@ that create better readable for you
 
 
 ## how to install
+    pip install indent-print
 
 ## how to use
+`iprint()` for indent print
 
-    >>> from iprint import iprint
+`cprint()` for indent and colorize print
+
+    >>> from iprint import iprint, cprint
 
     >>> iprint(anydata)
+    >>> cprint(anydata)
 
 ## customize
 ### custom indent length
