@@ -1,1 +1,1 @@
-from iprint.iprint import iprint, cprint
+from iprint.iprint import iprint, cprint, status_print

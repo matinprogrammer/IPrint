@@ -257,4 +257,4 @@ if __name__ == "__main__":
     cprint(list_data)
 
     print("\nresult of status_print: ")
-    status_print(another_data, show_dunder_attr=True, colorize=True)
+    status_print(another_data, show_dunder_attr=True)
