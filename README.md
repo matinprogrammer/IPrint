@@ -6,7 +6,7 @@ that create better readable for you
 **Debugging** **learning** and, in general, visually inspecting values accurately and easily is very useful.
 
 ## why use IPrint?
-For better display and **readability** for humans.
+For better display and **readability** of result of code for humans.
 
 ## how to install
     pip install indent-print
