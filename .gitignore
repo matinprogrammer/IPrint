@@ -6,3 +6,4 @@ dist/
 build/
 indent_print.egg-info/
 *.spec
+setup.py
