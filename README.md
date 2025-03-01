@@ -2,12 +2,27 @@
 you can use easy like print but this print has indent and color
 that create better readable for you
 
+## where use IPrint?
+**Debugging** **learning** and, in general, visually inspecting values accurately and easily is very useful.
 
-## Features:
-+ indent data you use
-+ colorize your data
-+ write data with indent in file so easy
+## why use IPrint?
+For better display and **readability** for humans.
 
+## how to install
+    pip install indent-print
+
+## how to use
+`iprint()` for indent print
+
+`cprint()` for indent and colorize print
+
+`status_print()` for print all data about instance of class(variable, method, ...)
+
+    >>> from iprint import iprint, cprint, status_print
+
+    >>> iprint(any_data)
+    >>> cprint(any_data)
+    >>> status_print(any_instance)
 
 # Example:
     class AnotherData:
@@ -28,19 +43,11 @@ that create better readable for you
 
 ![Screenshot of example code of iprint](media/example_of_cprint.png)
 
-
-## how to install
-    pip install indent-print
-
-## how to use
-`iprint()` for indent print
-
-`cprint()` for indent and colorize print
-
-    >>> from iprint import iprint, cprint
-
-    >>> iprint(anydata)
-    >>> cprint(anydata)
+## Features:
++ indent data you use
++ colorize your data
++ write data with indent in file so easy
++ print all data about instance of class
 
 ## customize
 ### custom indent length
