@@ -26,7 +26,27 @@ For better display and **readability** of result of code for humans.
 
 # Example:
     class AnotherData:
-        pass
+        """document of test class"""
+        class_variable = "class_variable_value"
+    
+        def __init__(self, data):
+            self.instance_variable = data
+    
+        def instance_method(self):
+            pass
+    
+        @classmethod
+        def class_method(cls):
+            pass
+    
+        @staticmethod
+        def static_method():
+            pass
+    
+        @property
+        def property_variable(self):
+            return "property_variable_value"
+
     string_data = "my name is matin"
     int_data = 20
     another_data = AnotherData()
@@ -42,6 +62,10 @@ For better display and **readability** of result of code for humans.
 `>>> cprint(list_data)`
 
 ![Screenshot of example code of iprint](media/example_of_cprint.png)
+
+`>>> status_print(another_data, show_dunder_attr=True, colorize=True)`
+
+![Screenshot of example code of iprint](media/example_of_status_print.png)
 
 ## Features:
 + indent data you use
